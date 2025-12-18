@@ -136,7 +136,7 @@ const messages = new Elysia({ prefix: "/messages" })
 const app = new Elysia({ prefix: "/api" })
 .use(
     cors({
-      origin: "https://realtime-chat-eouvqf01v-parthapradeepnaths-projects.vercel.app/", // allow only this origin
+      origin: "http://localhost:3000", // allow only this origin
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true // allow cookies/auth
