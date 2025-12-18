@@ -4,6 +4,8 @@ import { nanoid } from "nanoid";
 import { authMiddleware } from "./auth";
 import { z } from "zod";
 import { Message, realtime } from "@/lib/realtime";
+import { getCorsConfig } from "@/lib/cors";
+import cors from "@elysiajs/cors";
 
 const ROOM_TTL_SECONDS = 60 * 10; // 10min
 
@@ -131,7 +133,7 @@ const messages = new Elysia({ prefix: "/messages" })
     }
   );
 
-const app = new Elysia({ prefix: "/api" }).use(rooms).use(messages);
+const app = new Elysia({ prefix: "/api" }).use(cors(getCorsConfig())).use(rooms).use(messages);
 
 export const GET = app.fetch;
 export const POST = app.fetch;
