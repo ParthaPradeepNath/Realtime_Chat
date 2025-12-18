@@ -10,7 +10,6 @@ import cors from "@elysiajs/cors";
 const ROOM_TTL_SECONDS = 60 * 10; // 10min
 
 const rooms = new Elysia({ prefix: "/room" })
-.use(cors(getCorsConfig()))
   .post("/create", async () => {
     // console.log("CREATE A NEW ROOM!")
     // const roomId = nanoid()
@@ -68,7 +67,6 @@ const rooms = new Elysia({ prefix: "/room" })
   );
 
 const messages = new Elysia({ prefix: "/messages" })
-.use(cors(getCorsConfig()))
   .use(authMiddleware)
   .post(
     "/",
