@@ -10,6 +10,7 @@ import cors from "@elysiajs/cors";
 const ROOM_TTL_SECONDS = 60 * 10; // 10min
 
 const rooms = new Elysia({ prefix: "/room" })
+.use(cors(getCorsConfig()))
   .post("/create", async () => {
     // console.log("CREATE A NEW ROOM!")
     // const roomId = nanoid()
@@ -67,6 +68,7 @@ const rooms = new Elysia({ prefix: "/room" })
   );
 
 const messages = new Elysia({ prefix: "/messages" })
+.use(cors(getCorsConfig()))
   .use(authMiddleware)
   .post(
     "/",
@@ -133,16 +135,7 @@ const messages = new Elysia({ prefix: "/messages" })
     }
   );
 
-const app = new Elysia({ prefix: "/api" })
-.use(
-    cors({
-      origin: "http://localhost:3000", // allow only this origin
-      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Authorization"],
-      credentials: true // allow cookies/auth
-    })
-  )
-.use(rooms).use(messages);
+const app = new Elysia({ prefix: "/api" }).use(cors(getCorsConfig())).use(rooms).use(messages);
 
 export const GET = app.fetch;
 export const POST = app.fetch;
